@@ -1,0 +1,27 @@
+[project]
+name = "ai-voice-chat"
+version = "1.0.0"
+description = "A hands-free voice assistant that runs on your computer: Gemma 4, Qwen3-ASR and Qwen3-TTS on MLX"
+authors = [{ name = "Christian Heller" }]
+requires-python = "==3.12.*"
+dependencies = [
+  "mlx==0.32.4; sys_platform == 'darwin'",
+  "mlx[cuda13]==0.32.4; sys_platform == 'linux'",
+  "mlx-lm==0.32.2",
+  "mlx-audio==0.6.1",
+  "onnxruntime==1.31.0",
+  "fastapi==0.143.0",
+  "uvicorn==0.54.0",
+  "websockets==17.2",
+]
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "httpx==0.28.1"]
+
+[tool.uv]
+package = false
+environments = ["sys_platform == 'darwin' and platform_machine == 'arm64'", "sys_platform == 'linux' and platform_machine == 'x86_64'"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
